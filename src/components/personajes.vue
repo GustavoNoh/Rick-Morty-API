@@ -6,7 +6,7 @@ export default {
     return {
       info: [],
       personajes: [],
-      cont:2
+      cont: 2
     }
   },
   mounted() {
@@ -18,58 +18,58 @@ export default {
   },
   methods: {
     pag(num) {
-      API_URL='https://rickandmortyapi.com/api/character/?page='+num
+      API_URL = 'https://rickandmortyapi.com/api/character/?page=' + num
       console.log(API_URL)
       axios.get(API_URL)
-      .then((response) => {
-        console.log(response.config)
-        this.info = response.data.info;
-        this.personajes = response.data.results;
-      })
+        .then((response) => {
+          console.log(response.config)
+          this.info = response.data.info;
+          this.personajes = response.data.results;
+        })
       this.cont++
     },
     buscador(buscar) {
-      API_URL='https://rickandmortyapi.com/api/character/?page='+buscar
-      console.log(API_URL)
+      API_URL = 'https://rickandmortyapi.com/api/character/?name=' + buscar
       axios.get(API_URL)
-      .then((response) => {
-        console.log(response.config)
-        this.info = response.data.info;
-        this.personajes = response.data.results;
-      })
-      this.cont++
+        .then((response) => {
+          this.info = response.data.info;
+          this.personajes = response.data.results;
+        })
     }
   },
 }
 </script>
 
 <template>
-  
   <div>
     <div class="flow-root justify-center mt-5 bg-green-500 shadow-lg h-90 w-1/2 py-5 items-center m-auto rounded-lg">
-      <div class="border-double border-4 rounded-lg border-current mb-6 ml-6 mr-6 text-center">
+      <div class="rounded-lg border-current mb-6 ml-6 mr-6 text-center rounded-lg px-5 my-2 text-white">
         <h2>Hay {{ info.count }} personajes en el programa de Rick & Morty</h2>
       </div>
-      <div class="border-double border-4 rounded-lg border-current mb-6 ml-6 mr-6 text-center">
-        <button @click="pag(cont)">página {{ cont }}</button>
+      
+      <div class="rounded-lg border-current mb-6 ml-6 mr-6 text-center space-x-9">
+        <input type="text" v-model="buscar" placeholder="Escribir Nombre"  class="border border-white rounded-lg my-2">
+        <button @click="buscador(buscar)" class="boton bg-green-800 text-orange-800 rounded-lg px-5 my-2 text-white"><b>Buscar</b></button>
       </div>
-      <div class="border-double border-4 rounded-lg border-current mb-6 ml-6 mr-6 text-center">
-        <h1>
-          Aquí va el buscador
-        </h1>
+      <div class="rounded-lg border-current mb-6 ml-6 mr-6 text-center space-x-52">
+        <button @click="pag(cont)" class="boton bg-green-800 rounded-lg px-5 my-2 text-white" >página {{ cont }}</button>
+        <button @click="pag(cont)" class="boton bg-green-800 rounded-lg px-5 my-2 text-white" >página {{ cont }}</button>
       </div>
     </div>
+
+    <!-- Imprime los personajes de la página -->
     <div class="flex justify-center mt-5 bg-green-500 shadow-lg h-90 w-1/2 py-5 items-center m-auto rounded-lg">
-    <ul>
-    <li v-for="p in personajes" class="border-double border-4 rounded-lg border-current  mb-6 ml-6 mr-6">
-        <div class="text-center mb-6 ml-6 mr-6">
-          <img v-bind:src=" p.image " alt="Personajes_Rick_Morty" width="200" height="100" class="my-5">
-        {{ p.name }} <br>
-        id:{{ p.id }} <br>
-        Especie: {{ p.species }}<br>
-        </div>
-    </li>
-  </ul>
-  </div>
+      <ul>
+        <li v-for="p in personajes" class="border-double border-4 rounded-lg border-current  mb-6 ml-6 mr-6">
+          <div class="text-center mb-6 ml-6 mr-6">
+            <img v-bind:src="p.image" alt="Personajes_Rick_Morty" width="200" height="100" class="my-5">
+            {{ p.name }} <br>
+            id:{{ p.id }} <br>
+            Especie: {{ p.species }}<br>
+          </div>
+        </li>
+      </ul>
+    </div>
+
   </div>
 </template>
