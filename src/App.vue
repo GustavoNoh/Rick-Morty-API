@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import PieDePagina from './components/footer.vue'
 
 </script>
 
@@ -33,8 +34,9 @@ import { RouterLink, RouterView } from 'vue-router'
       </div>
     </nav>
   </header>
-
+  
   <RouterView />
+  <PieDePagina />
 </template>
 
 <style scoped></style>

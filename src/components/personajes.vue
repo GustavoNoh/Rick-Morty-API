@@ -42,7 +42,7 @@ export default {
 
 <template>
   <div>
-    <div class="flow-root justify-center mt-5 bg-green-500 shadow-lg h-90 w-1/2 py-5 items-center m-auto rounded-lg">
+    <div class="flow-root justify-center mt-5 bg-green-500 shadow-lg h-90 w-3/4 py-5 items-center m-auto rounded-lg">
       <div class="rounded-lg border-current mb-6 ml-6 mr-6 text-center rounded-lg px-5 my-2 text-white">
         <h2>Hay {{ info.count }} personajes en el programa de Rick & Morty</h2>
       </div>
@@ -58,14 +58,32 @@ export default {
     </div>
 
     <!-- Imprime los personajes de la página -->
-    <div class="flex justify-center mt-5 bg-green-500 shadow-lg h-90 w-1/2 py-5 items-center m-auto rounded-lg">
+    <div class="flex justify-center mt-5 bg-green-500 shadow-lg h-90 w-3/4 py-5 items-center m-auto rounded-lg">
       <ul>
-        <li v-for="p in personajes" class="border-double border-4 rounded-lg border-current  mb-6 ml-6 mr-6">
-          <div class="text-center mb-6 ml-6 mr-6">
-            <img v-bind:src="p.image" alt="Personajes_Rick_Morty" width="200" height="100" class="my-5">
-            {{ p.name }} <br>
-            id:{{ p.id }} <br>
-            Especie: {{ p.species }}<br>
+        <li v-for="p in personajes" class="border-double border-4 rounded-lg border-current mb-6 ml-6 mr-6 mt-6 border-white">
+          <div class="flex mb-6 ml-6 mr-6 text-white">
+            <div>
+              <img v-bind:src="p.image" alt="Personajes_Rick_Morty" width="200" height="100" class="my-5">
+            </div>
+            <div class="my-5 mx-5 text-center items-center mx-12">
+              <h1 class="text-xl font-mono">
+              {{ p.name }}
+              </h1>
+              <ol class="list-disc">
+                <li>
+                  {{ p.status }} - {{ p.species }} - {{ p.gender }}<br>
+                </li>
+               <li>
+                Origen: {{ p.origin.name }}
+               </li> 
+               <li>
+                Locación: {{ p.location.name }}
+               </li> 
+               <li>
+                Creado: {{ p.created }}
+               </li> 
+              </ol>
+            </div>
           </div>
         </li>
       </ul>
