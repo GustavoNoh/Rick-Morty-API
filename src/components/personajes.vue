@@ -6,7 +6,10 @@ export default {
     return {
       info: [],
       personajes: [],
-      cont: 2
+      cont: 2,
+      siguiente:null,
+      anterior:null,
+      pagina:1
     }
   },
   mounted() {
@@ -35,7 +38,19 @@ export default {
           this.info = response.data.info;
           this.personajes = response.data.results;
         })
-    }
+    },
+        navpag(num){
+          API_URL='https://rickandmortyapi.com/api/character/?page='+this.pagina
+          //console.log(API_URL)
+          axios.get(API_URL)
+          .then((response) => {
+            //console.log(response.config)
+            this.info= response.data.info;
+            //console.log(response.data.info.next)
+            this.personajes = response.data.results;
+          })
+          
+        }
   },
 }
 </script>
@@ -52,8 +67,8 @@ export default {
         <button @click="buscador(buscar)" class="boton bg-green-800 text-orange-800 rounded-lg px-5 my-2 text-white"><b>Buscar</b></button>
       </div>
       <div class="rounded-lg border-current mb-6 ml-6 mr-6 text-center space-x-52">
-        <button @click="pag(cont)" class="boton bg-green-800 rounded-lg px-5 my-2 text-white" >página {{ cont }}</button>
-        <button @click="pag(cont)" class="boton bg-green-800 rounded-lg px-5 my-2 text-white" >página {{ cont }}</button>
+        <button class="boton bg-green-800 rounded-lg px-5 my-2 text-white" v-if="pagina!==1" @click="$event => navpag(pagina--)" > Anterior</button>
+        <button class="boton bg-green-800 rounded-lg px-5 my-2 text-white" v-if="pagina!==this.info.pages" @click="$event => navpag(pagina++)" > Siguiente</button>
       </div>
     </div>
 
@@ -65,13 +80,13 @@ export default {
             <div>
               <img v-bind:src="p.image" alt="Personajes_Rick_Morty" width="200" height="100" class="my-5">
             </div>
-            <div class="my-5 mx-5 text-center items-center mx-12">
+            <div class="my-5 mx-5 text-center items-center space-x-10">
               <h1 class="text-xl font-mono">
               {{ p.name }}
               </h1>
               <ol class="list-disc">
                 <li>
-                  {{ p.status }} - {{ p.species }} - {{ p.gender }}<br>
+                  {{ p.status }} - {{ p.species }} - {{ p.species }}<br>
                 </li>
                <li>
                 Origen: {{ p.origin.name }}
